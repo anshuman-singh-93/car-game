@@ -78,7 +78,7 @@ function moveEnemy(car) {
 
         let widthArray = [
             [0, gameArea.getBoundingClientRect().width / 2],
-            [gameArea.getBoundingClientRect().width / 2, gameArea.getBoundingClientRect().width - 50]
+            [gameArea.getBoundingClientRect().width / 2+30, gameArea.getBoundingClientRect().width - 50]
         ]
         enemy.y += player.speed;
         if (enemy.y > gameArea.getBoundingClientRect().height) {
@@ -102,7 +102,7 @@ function getRandomInt(min, max) {
 function buildEnemy() {
     let widthArray = [
         [0, gameArea.getBoundingClientRect().width / 2],
-        [gameArea.getBoundingClientRect().width / 2, gameArea.getBoundingClientRect().width - 50]
+        [gameArea.getBoundingClientRect().width / 2+30, gameArea.getBoundingClientRect().width - 50]
     ]
 
     for (let i = 0; i < 2; i++) {
@@ -158,7 +158,7 @@ function startPlay() {
 function isColllided(car, enemy) {
     let coordinationOfCar = car.getBoundingClientRect();
     let coordinationOfEnemy = enemy.getBoundingClientRect();
-    return !((coordinationOfCar.top > coordinationOfEnemy.bottom - 10) ||
+    return !((coordinationOfCar.top > coordinationOfEnemy.bottom - 15) ||
         (coordinationOfCar.bottom < coordinationOfEnemy.top + 10) ||
         (coordinationOfCar.left) > coordinationOfEnemy.right - 10 ||
         (coordinationOfCar.right < coordinationOfEnemy.left + 10))
@@ -208,6 +208,8 @@ function generateGameBoard() {
     player.score = 0;
     player.start = true;
     gameArea.innerHTML = ''
+
+    score.innerHTML = `Score: ${player.score}. Level:${player.level}`
 
     let car = document.createElement('div');
     car.innerHTML = 'Car';
