@@ -74,12 +74,16 @@ function moveEnemy(car){
            return gameStopped();
         }
        
+        let widthArray = [
+            [0,gameArea.getBoundingClientRect().width/2],
+            [gameArea.getBoundingClientRect().width/2, gameArea.getBoundingClientRect().width - 30]
+        ]
         enemy.y += player.speed;
         if(enemy.y > gameArea.getBoundingClientRect().height){
-            enemy.x = getRandomInt(10+i, gameArea.getBoundingClientRect().width-30)
-
+            enemy.x = getRandomInt(widthArray[i][0], widthArray[i][1])
             enemy.y = getRandomInt(10,50)
         }
+       
         enemy.style.top = enemy.y + 'px';
         enemy.style.left = enemy.x + 'px';
     })
@@ -94,10 +98,15 @@ function getRandomInt(min, max) {
 }
 
 function buildEnemy(){
+    let widthArray = [
+        [0,gameArea.getBoundingClientRect().width/2],
+        [gameArea.getBoundingClientRect().width/2, gameArea.getBoundingClientRect().width - 30]
+    ]
+
     for(let i = 0 ; i < 2 ; i++){
         let enemy = document.createElement('div')
         enemy.classList.add('enemy')
-        enemy.x = getRandomInt(10 + i, gameArea.getBoundingClientRect().width-30)
+        enemy.x = getRandomInt(widthArray[i][0], widthArray[i][1])
         enemy.y = getRandomInt(10,50)
 
         enemy.style.left = enemy.x + 'px';
@@ -146,10 +155,10 @@ function startPlay(){
 function isColllided (car, enemy){
     let coordinationOfCar = car.getBoundingClientRect();
     let coordinationOfEnemy = enemy.getBoundingClientRect();
-    return !((coordinationOfCar.top > coordinationOfEnemy.bottom) ||
-        (coordinationOfCar.bottom < coordinationOfEnemy.top) || 
-        (coordinationOfCar.left) > coordinationOfEnemy.right || 
-        (coordinationOfCar.right < coordinationOfEnemy.left))
+    return !((coordinationOfCar.top > coordinationOfEnemy.bottom-20) ||
+        (coordinationOfCar.bottom < coordinationOfEnemy.top-20) || 
+        (coordinationOfCar.left) > coordinationOfEnemy.right-20 || 
+        (coordinationOfCar.right < coordinationOfEnemy.left+10))
     
 
 }
